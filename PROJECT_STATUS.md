@@ -3,11 +3,11 @@
 ## Project
 - Name: mvp-template
 - Template Type: MVP
-- Current Branch: work
+- Current Branch: main
 - Last Updated: 2026-04-10
 
 ## Current Phase
-- Local foundation ready for feature work
+- Fork-ready template baseline
 
 ## Completed
 - Reviewed repository guidance and architecture notes.
@@ -18,16 +18,22 @@
 - Verified the local app boots in Docker and the health endpoint responds at `/api/health`.
 - Upgraded `next` and `eslint-config-next` to `16.2.3`, added the `pnpm-lock.yaml`, and aligned the ESLint config with Next.js 16 flat-config exports.
 - Verified `pnpm test` passes in the Dockerized app environment after the framework upgrade.
+- Added Prisma 6 with an initial PostgreSQL migration, seed script, starter `Project` model, and Auth.js adapter models.
+- Added a starter repository/service example for projects and used it from the protected dashboard route.
+- Added Auth.js route handling, provider placeholders, sign-in flow scaffolding, and protected route enforcement.
+- Added Vitest with starter unit and smoke tests.
+- Added GitHub Actions CI for lint, typecheck, tests, and build.
+- Expanded README and Docker docs so the repo can be forked and customized as a starter template.
 
 ## In Progress
-- Expand Prisma/PostgreSQL foundation with the first model and migration flow.
+- None.
 
 ## Next Up
-- Add Auth.js foundation with provider placeholders.
-- Add Prisma migration and seed workflow documentation for the Dockerized local environment.
+- Replace the sample `Project` domain and placeholder marketing copy in downstream forks.
+- Configure at least one OAuth provider in `.env` for a deployed environment.
 
 ## Blockers
-- Host `node` and `pnpm` are not available in this execution environment, so local preview currently depends on Docker.
+- None.
 
 ## Key Decisions
 - Decision: Start with app structure before infrastructure and database layers.
@@ -40,11 +46,16 @@
 - Docker Dev: docker compose up --build
 - Docker Stop: docker compose down
 - Test: pnpm test
+- Check: pnpm check
 - Lint: pnpm lint
 - Typecheck: pnpm typecheck
 - Build: pnpm build
+- DB Generate: pnpm db:generate
+- DB Migrate: pnpm db:migrate
+- DB Seed: pnpm db:seed
+- DB Studio: pnpm db:studio
 
 ## Notes for Next Session
-- What was just finished: Dockerized local stack, Next.js patch upgrade, and lint/typecheck verification.
-- What should happen next: Add the first Prisma model, migration workflow, and Auth.js foundation.
-- Risks / caution areas: Keep server-only boundaries for data access while framework and auth foundations evolve.
+- What was just finished: Template hardening across Prisma, Auth.js, tests, CI, docs, and Docker verification.
+- What should happen next: Fork the repository into a product-specific project and replace the sample project model and copy.
+- Risks / caution areas: Keep server-only boundaries intact and avoid expanding the starter with product-specific workflows unless they are broadly reusable.

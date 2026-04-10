@@ -8,10 +8,18 @@ services:
       sh -c "pnpm install &&
       pnpm dev --hostname 0.0.0.0 --port 3000"
     environment:
-      NODE_ENV: development
       NEXT_TELEMETRY_DISABLED: "1"
       PNPM_STORE_DIR: /pnpm/store
       DATABASE_URL: postgresql://postgres:postgres@db:5432/mvp_template?schema=public
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: local-dev-only-secret-change-me
+      MICROSOFT_ENTRA_CLIENT_ID: ${MICROSOFT_ENTRA_CLIENT_ID:-}
+      MICROSOFT_ENTRA_CLIENT_SECRET: ${MICROSOFT_ENTRA_CLIENT_SECRET:-}
+      MICROSOFT_ENTRA_TENANT_ID: ${MICROSOFT_ENTRA_TENANT_ID:-}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      APPLE_CLIENT_ID: ${APPLE_CLIENT_ID:-}
+      APPLE_CLIENT_SECRET: ${APPLE_CLIENT_SECRET:-}
     ports:
       - "3000:3000"
     volumes:
