@@ -10,9 +10,9 @@ services:
     environment:
       NEXT_TELEMETRY_DISABLED: "1"
       PNPM_STORE_DIR: /pnpm/store
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/mvp_template?schema=public
-      NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: local-dev-only-secret-change-me
+      DATABASE_URL: ${DOCKER_DATABASE_URL:-postgresql://postgres:postgres@db:5432/mvp_template?schema=public}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-local-dev-only-secret-change-me}
       MICROSOFT_ENTRA_CLIENT_ID: ${MICROSOFT_ENTRA_CLIENT_ID:-}
       MICROSOFT_ENTRA_CLIENT_SECRET: ${MICROSOFT_ENTRA_CLIENT_SECRET:-}
       MICROSOFT_ENTRA_TENANT_ID: ${MICROSOFT_ENTRA_TENANT_ID:-}
@@ -21,7 +21,7 @@ services:
       APPLE_CLIENT_ID: ${APPLE_CLIENT_ID:-}
       APPLE_CLIENT_SECRET: ${APPLE_CLIENT_SECRET:-}
     ports:
-      - "3000:3000"
+      - "${APP_PORT:-3000}:3000"
     volumes:
       - .:/app
       - app_node_modules:/app/node_modules
@@ -33,13 +33,13 @@ services:
   db:
     image: postgres:18-bookworm
     environment:
-      POSTGRES_DB: mvp_template
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB:-mvp_template}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d mvp_template"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-mvp_template}"]
       interval: 5s
       timeout: 5s
       retries: 12

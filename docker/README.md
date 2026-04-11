@@ -3,11 +3,11 @@
 Local Docker assets for the MVP template live here.
 
 ## Current Stack
-- `docker-compose.yml` at the repo root runs:
-- Next.js app on `http://localhost:3000`
-- PostgreSQL 18 on `localhost:5432`
+- `docker-compose.yml` at the repo root runs Next.js on `http://localhost:<APP_PORT>` and defaults to `http://localhost:3000`.
+- It also runs PostgreSQL 18 on `localhost:<POSTGRES_PORT>` and defaults to `localhost:5432`.
 
 ## Start
+- Generate or update `.env` first with `pwsh -File ./scripts/setup-local.ps1` on Windows or `bash ./scripts/setup-local.sh` on macOS / Linux.
 - `docker compose up --build`
 
 ## Stop
@@ -22,8 +22,8 @@ Local Docker assets for the MVP template live here.
 - `docker compose exec app sh -lc "pnpm db:seed"`
 
 ## Auth Notes
-- The compose stack provides local development values for `NEXTAUTH_URL` and `NEXTAUTH_SECRET`.
-- OAuth provider credentials can be supplied from your local `.env` file when you are ready to enable sign-in.
+- The compose stack reads `NEXTAUTH_URL`, `NEXTAUTH_SECRET`, and `DOCKER_DATABASE_URL` from your local `.env`.
+- The setup scripts can also collect OAuth provider credentials. Press Enter to leave them blank until you are ready to enable sign-in.
 
 ## Notes
 - The app container installs dependencies with `pnpm` inside Docker, so the host machine does not need local Node.js or pnpm to preview the scaffold.
