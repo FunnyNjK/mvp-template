@@ -3,7 +3,7 @@
 ## Project
 - Name: mvp-template
 - Template Type: MVP
-- Current Branch: main
+- Current Branch: codex/local-setup-hardening
 - Last Updated: 2026-04-10
 
 ## Current Phase
@@ -24,6 +24,11 @@
 - Added Vitest with starter unit and smoke tests.
 - Added GitHub Actions CI for lint, typecheck, tests, and build.
 - Expanded README and Docker docs so the repo can be forked and customized as a starter template.
+- Parameterized local Docker app/database settings through `.env` so downstream forks can choose their own ports and Postgres credentials without editing Compose files directly.
+- Added guided local setup scripts for PowerShell and Bash to generate consistent `.env` values for Docker, Prisma, and Auth.js.
+- Extended the setup scripts so they can optionally collect OAuth provider env vars while still allowing users to skip them with Enter.
+- Verified the updated Docker configuration resolves cleanly with `docker compose config` in the current environment.
+- Verified the PowerShell setup script can generate `.env` end-to-end, including the optional OAuth section with blank defaults.
 
 ## In Progress
 - None.
@@ -45,6 +50,8 @@
 - Dev: pnpm dev
 - Docker Dev: docker compose up --build
 - Docker Stop: docker compose down
+- Local Setup (Windows): pwsh -File ./scripts/setup-local.ps1
+- Local Setup (macOS/Linux): bash ./scripts/setup-local.sh
 - Test: pnpm test
 - Check: pnpm check
 - Lint: pnpm lint
@@ -56,6 +63,6 @@
 - DB Studio: pnpm db:studio
 
 ## Notes for Next Session
-- What was just finished: Template hardening across Prisma, Auth.js, tests, CI, docs, and Docker verification.
-- What should happen next: Fork the repository into a product-specific project and replace the sample project model and copy.
-- Risks / caution areas: Keep server-only boundaries intact and avoid expanding the starter with product-specific workflows unless they are broadly reusable.
+- What was just finished: Replaced hard-coded local Docker and Postgres defaults with `.env`-driven configuration, added guided setup scripts with optional auth prompts, and documented the new onboarding flow in the README.
+- What should happen next: Smoke-test the Bash setup path in a macOS or Linux shell, then continue replacing sample product/domain content in downstream forks.
+- Risks / caution areas: Keep `DATABASE_URL` and `DOCKER_DATABASE_URL` aligned when extending local setup, since host-side Prisma and container-side app traffic use different database hosts.
